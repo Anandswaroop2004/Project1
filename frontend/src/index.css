@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* Theme Design System Tokens */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.98);
+  
+  --border-color: rgba(203, 213, 225, 0.9);
+  --border-glow: rgba(234, 88, 12, 0.45);
+  --border-active: #ea580c;
+
+  --accent-cyan: #0284c7;
+  --accent-blue: #ea580c;
+  --accent-orange: #f97316;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-rose: #dc2626;
+  --accent-purple: #7c3aed;
+
+  --text-main: #0f172a;
+  --text-muted: #1e293b;
+  --text-dim: #334155;
+  --text-highlight: #ea580c;
+
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-military: 'Chakra Petch', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --shadow-glow-cyan: 0 0 20px rgba(249, 115, 22, 0.25);
+  --shadow-glow-emerald: 0 0 20px rgba(5, 150, 105, 0.22);
+  --shadow-glow-amber: 0 0 20px rgba(249, 115, 22, 0.35);
+  --shadow-card: 0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  --bg-overlay-grad: linear-gradient(180deg, rgba(248, 250, 252, 0.94) 0%, rgba(241, 245, 249, 0.97) 100%);
+  --bg-hero-grad: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.97) 60%, rgba(255, 255, 255, 0.85) 100%);
+  --header-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --table-th-bg: #f8fafc;
+  --table-tr-hover: #f1f5f9;
+  --modal-bg: #ffffff;
+  --modal-header-bg: #f8fafc;
+  --pill-bg: #f1f5f9;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #060a12;
+  --bg-secondary: #0b1220;
+  --bg-card: #0f172a;
+  --bg-card-hover: #1e293b;
+  --bg-glass: rgba(15, 23, 42, 0.96);
+  
+  --border-color: rgba(51, 65, 85, 0.8);
+  --border-glow: rgba(249, 115, 22, 0.55);
+  --border-active: #f97316;
+
+  --accent-cyan: #00f2fe;
+  --accent-blue: #f97316;
+  --accent-orange: #ea580c;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --accent-purple: #a78bfa;
+
+  --text-main: #ffffff;
+  --text-muted: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-highlight: #f97316;
+
+  --shadow-glow-cyan: 0 0 25px rgba(249, 115, 22, 0.35);
+  --shadow-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.3);
+  --shadow-glow-amber: 0 0 25px rgba(245, 158, 11, 0.3);
+  --shadow-card: 0 14px 40px -10px rgba(0, 0, 0, 0.75);
+
+  --bg-overlay-grad: linear-gradient(180deg, rgba(6, 10, 18, 0.94) 0%, rgba(11, 18, 32, 0.97) 100%);
+  --bg-hero-grad: linear-gradient(90deg, #0b1220 0%, rgba(11, 18, 32, 0.96) 60%, rgba(11, 18, 32, 0.85) 100%);
+  --header-bg: #0b1220;
+  --sidebar-bg: #090e18;
+  --table-th-bg: #0f172a;
+  --table-tr-hover: rgba(30, 41, 59, 0.7);
+  --modal-bg: #0b1220;
+  --modal-header-bg: #0f172a;
+  --pill-bg: #1e293b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Operational Background with subtle watermark effect */
+.app-military-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    var(--bg-overlay-grad),
+    url('/military_hero.png');
+  background-size: cover;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.25;
+}
+
+/* Scanline / HUD Grid Overlay */
+.app-military-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(14, 116, 144, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 116, 144, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Typography Utility */
+.font-military {
+  font-family: var(--font-military);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glass Panels with Crisp Translucency */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12);
+}
+
+.glass-panel-interactive {
+  cursor: pointer;
+}
+.glass-panel-interactive:hover {
+  border-color: var(--accent-blue);
+  box-shadow: var(--shadow-glow-cyan), 0 16px 40px rgba(15, 23, 42, 0.14);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn-tactical {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-family: var(--font-military);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  border-color: #f97316;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-emerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  border-color: rgba(5, 150, 105, 0.4);
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+.btn-emerald:hover {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  box-shadow: 0 0 20px rgba(5, 150, 105, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-amber {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: #ffffff;
+  border-color: rgba(217, 119, 6, 0.4);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+.btn-amber:hover {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+  box-shadow: 0 0 20px rgba(217, 119, 6, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+[data-theme="dark"] .btn-secondary {
+  background: rgba(20, 30, 52, 0.8);
+}
+.btn-secondary:hover {
+  background: #ffffff;
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+.btn-danger:hover {
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+}
+
+/* Badges */
+.badge-tactical {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-family: var(--font-military);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-admin {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.badge-commander {
+  background: rgba(234, 88, 12, 0.12);
+  color: #ea580c;
+  border: 1px solid rgba(234, 88, 12, 0.35);
+}
+
+.badge-logistics {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.badge-success {
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.3);
+}
+
+.badge-warning {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.badge-danger {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.badge-info {
+  background: rgba(234, 88, 12, 0.12);
+  color: #ea580c;
+  border: 1px solid rgba(234, 88, 12, 0.3);
+}
+
+/* Inputs & Forms */
+.input-tactical, .select-tactical, .textarea-tactical {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+[data-theme="dark"] .input-tactical,
+[data-theme="dark"] .select-tactical,
+[data-theme="dark"] .textarea-tactical {
+  background: rgba(11, 18, 33, 0.95);
+}
+
+.input-tactical:focus, .select-tactical:focus, .textarea-tactical:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.25);
+  background: #ffffff;
+}
+
+[data-theme="dark"] .input-tactical:focus,
+[data-theme="dark"] .select-tactical:focus,
+[data-theme="dark"] .textarea-tactical:focus {
+  background: rgba(16, 26, 48, 0.98);
+}
+
+.select-tactical option {
+  background: #ffffff;
+  color: #0f172a;
+}
+[data-theme="dark"] .select-tactical option {
+  background: #0b1220;
+  color: #f8fafc;
+}
+
+/* Table Styles */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+.table-tactical {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.table-tactical th {
+  background: var(--table-th-bg);
+  color: var(--text-muted);
+  font-family: var(--font-military);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 18px;
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.table-tactical td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+  color: var(--text-main);
+}
+
+.table-tactical tbody tr {
+  transition: background 0.15s ease;
+}
+
+.table-tactical tbody tr:hover {
+  background: var(--table-tr-hover);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: var(--modal-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+  border-radius: 14px;
+  max-width: 950px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Pulsing radar dot */
+.radar-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #059669;
+  position: relative;
+}
+.radar-pulse::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #059669;
+  animation: pulseRadar 1.5s infinite ease-out;
+}
+
+@keyframes pulseRadar {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
