@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: mams-backend
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    healthCheckPath: /api/health
